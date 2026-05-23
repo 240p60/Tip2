@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 620" width="600" height="620" font-family="Arial, Helvetica, sans-serif">
+  <title>Колесо карьерного баланса — Сейчас (точка А)</title>
+
+  <!-- Заголовок -->
+  <text x="300" y="32" text-anchor="middle" font-size="20" font-weight="bold" fill="#222">
+    Колесо карьерного баланса — Сейчас (точка А)
+  </text>
+  <text x="300" y="54" text-anchor="middle" font-size="13" fill="#666">
+    Шкала: 1 (минимум) — 10 (максимум)
+  </text>
+
+  <!-- Концентрические сетки для уровней 2, 4, 6, 8, 10 -->
+  <polygon points="300,276 334,293 343,330 319,360 281,360 257,330 266,293"
+           fill="none" stroke="#e3e3e3" stroke-width="1"/>
+  <polygon points="300,232 369,265 386,340 338,399 262,399 214,340 231,265"
+           fill="none" stroke="#e3e3e3" stroke-width="1"/>
+  <polygon points="300,188 403,238 428,349 357,439 243,439 172,349 197,238"
+           fill="none" stroke="#e3e3e3" stroke-width="1"/>
+  <polygon points="300,144 438,210 471,359 376,478 224,478 129,359 162,210"
+           fill="none" stroke="#e3e3e3" stroke-width="1"/>
+  <polygon points="300,100 472,183 514,369 395,518 205,518 86,369 128,183"
+           fill="none" stroke="#bdbdbd" stroke-width="1.5"/>
+
+  <!-- Радиальные оси -->
+  <line x1="300" y1="320" x2="300" y2="100" stroke="#bdbdbd" stroke-width="1"/>
+  <line x1="300" y1="320" x2="472" y2="183" stroke="#bdbdbd" stroke-width="1"/>
+  <line x1="300" y1="320" x2="514" y2="369" stroke="#bdbdbd" stroke-width="1"/>
+  <line x1="300" y1="320" x2="395" y2="518" stroke="#bdbdbd" stroke-width="1"/>
+  <line x1="300" y1="320" x2="205" y2="518" stroke="#bdbdbd" stroke-width="1"/>
+  <line x1="300" y1="320" x2="86"  y2="369" stroke="#bdbdbd" stroke-width="1"/>
+  <line x1="300" y1="320" x2="128" y2="183" stroke="#bdbdbd" stroke-width="1"/>
+
+  <!-- Подписи уровней (на верхней оси) -->
+  <text x="306" y="280" font-size="10" fill="#999">2</text>
+  <text x="306" y="236" font-size="10" fill="#999">4</text>
+  <text x="306" y="192" font-size="10" fill="#999">6</text>
+  <text x="306" y="148" font-size="10" fill="#999">8</text>
+  <text x="306" y="108" font-size="10" fill="#999">10</text>
+
+  <!-- Подписи осей (критерии) -->
+  <text x="300" y="88"  text-anchor="middle" font-size="13" font-weight="600" fill="#222">Удалённая работа</text>
+  <text x="482" y="178" text-anchor="start"  font-size="13" font-weight="600" fill="#222">Уровень дохода</text>
+  <text x="522" y="373" text-anchor="start"  font-size="13" font-weight="600" fill="#222">Проф. рост</text>
+  <text x="395" y="540" text-anchor="middle" font-size="13" font-weight="600" fill="#222">Баланс работа/жизнь</text>
+  <text x="205" y="540" text-anchor="middle" font-size="13" font-weight="600" fill="#222">Интересные задачи</text>
+  <text x="78"  y="373" text-anchor="end"    font-size="13" font-weight="600" fill="#222">Команда и культура</text>
+  <text x="118" y="178" text-anchor="end"    font-size="13" font-weight="600" fill="#222">Стабильность компании</text>
+
+  <!-- Значения текущего состояния: 5, 2, 7, 6, 6, 7, 3 -->
+  <polygon points="300,210 334,293 450,354 357,439 243,439 150,354 248,279"
+           fill="rgba(33, 160, 56, 0.30)" stroke="#21A038" stroke-width="2.5"/>
+
+  <!-- Точки на вершинах полигона со значениями -->
+  <g fill="#21A038">
+    <circle cx="300" cy="210" r="4"/>
+    <circle cx="334" cy="293" r="4"/>
+    <circle cx="450" cy="354" r="4"/>
+    <circle cx="357" cy="439" r="4"/>
+    <circle cx="243" cy="439" r="4"/>
+    <circle cx="150" cy="354" r="4"/>
+    <circle cx="248" cy="279" r="4"/>
+  </g>
+  <g font-size="12" font-weight="700" fill="#0c5f1f">
+    <text x="312" y="207" text-anchor="start">5</text>
+    <text x="343" y="289" text-anchor="start">2</text>
+    <text x="459" y="350" text-anchor="start">7</text>
+    <text x="366" y="436" text-anchor="start">6</text>
+    <text x="234" y="436" text-anchor="end">6</text>
+    <text x="141" y="350" text-anchor="end">7</text>
+    <text x="239" y="275" text-anchor="end">3</text>
+  </g>
+
+  <!-- Легенда -->
+  <g transform="translate(40, 590)">
+    <rect x="0" y="-12" width="14" height="14" fill="rgba(33,160,56,0.4)" stroke="#21A038" stroke-width="1.5"/>
+    <text x="22" y="0" font-size="13" fill="#222">Текущая оценка (точка А)</text>
+  </g>
+</svg>
