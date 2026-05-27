@@ -1,0 +1,252 @@
+{
+  "info": {
+    "_postman_id": "a1b2c3d4-e5f6-4789-abcd-1234567890ab",
+    "name": "JSONPlaceholder — Backend QA Practice",
+    "description": "Учебная коллекция для проекта «Backend-тестирование» (Школа 21). Целевой API: https://jsonplaceholder.typicode.com\n\nКоллекция демонстрирует базовый CRUD на ресурсе /posts:\n- GET всех постов (со схемной проверкой)\n- GET одного поста по id\n- POST создание поста\n- PUT обновление поста\n- DELETE удаление поста\n\nИспользует переменную base_url, чтобы коллекция работала без внешнего окружения. Переменные post_id и user_id можно переопределить через Environment.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "GET all posts",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Response is JSON array\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.be.an(\"array\");",
+              "    pm.expect(jsonData.length).to.be.above(0);",
+              "});",
+              "",
+              "pm.test(\"First item has required keys\", function () {",
+              "    const first = pm.response.json()[0];",
+              "    pm.expect(first).to.have.all.keys(\"userId\", \"id\", \"title\", \"body\");",
+              "});",
+              "",
+              "pm.test(\"Response time is below 1000 ms\", function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/posts",
+          "host": ["{{base_url}}"],
+          "path": ["posts"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET single post by id",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Returned post id matches the requested id\", function () {",
+              "    const expectedId = Number(pm.collectionVariables.get(\"post_id\"));",
+              "    pm.expect(pm.response.json().id).to.eql(expectedId);",
+              "});",
+              "",
+              "pm.test(\"Body has required keys (userId, id, title, body)\", function () {",
+              "    pm.expect(pm.response.json()).to.have.all.keys(\"userId\", \"id\", \"title\", \"body\");",
+              "});",
+              "",
+              "pm.test(\"Types are correct\", function () {",
+              "    const data = pm.response.json();",
+              "    pm.expect(data.userId).to.be.a(\"number\");",
+              "    pm.expect(data.id).to.be.a(\"number\");",
+              "    pm.expect(data.title).to.be.a(\"string\");",
+              "    pm.expect(data.body).to.be.a(\"string\");",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/posts/{{post_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["posts", "{{post_id}}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST create new post",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 201 (Created)\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});",
+              "",
+              "pm.test(\"Response has new id\", function () {",
+              "    const data = pm.response.json();",
+              "    pm.expect(data).to.have.property(\"id\");",
+              "    pm.collectionVariables.set(\"created_post_id\", data.id);",
+              "});",
+              "",
+              "pm.test(\"Response echoes sent title\", function () {",
+              "    pm.expect(pm.response.json().title).to.eql(\"Backend testing practice\");",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Backend testing practice\",\n  \"body\": \"This post is created from Postman as part of the School 21 backend project.\",\n  \"userId\": {{user_id}}\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/posts",
+          "host": ["{{base_url}}"],
+          "path": ["posts"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PUT update post",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Title was updated\", function () {",
+              "    pm.expect(pm.response.json().title).to.eql(\"Updated title\");",
+              "});",
+              "",
+              "pm.test(\"Returned id matches requested id\", function () {",
+              "    const expectedId = Number(pm.collectionVariables.get(\"post_id\"));",
+              "    pm.expect(pm.response.json().id).to.eql(expectedId);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": {{post_id}},\n  \"title\": \"Updated title\",\n  \"body\": \"Body has been fully replaced via PUT.\",\n  \"userId\": {{user_id}}\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/posts/{{post_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["posts", "{{post_id}}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE post",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200 (DELETE)\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Response body is empty object\", function () {",
+              "    const json = pm.response.json();",
+              "    pm.expect(Object.keys(json).length).to.eql(0);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/posts/{{post_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["posts", "{{post_id}}"]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "https://jsonplaceholder.typicode.com",
+      "type": "string"
+    },
+    {
+      "key": "post_id",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "user_id",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "created_post_id",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}
